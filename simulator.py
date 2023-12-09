@@ -1,7 +1,7 @@
 from random import choice
 from enum import Enum
 from typing import List
-from instruction import AL, ALI, L, S, J, CB, NOP, Instruction
+from instruction import Instruction, L, S, J, CB, NOP, generate_instructions
 
 
 class Stage(Enum):
@@ -16,9 +16,7 @@ class Stage(Enum):
 class Simulator:
     def __init__(self, n: int, with_branch_prediction: bool) -> None:
         self.n = n
-        self.instructions = [
-            choice([AL(), ALI(), L(), S(), J(), CB()]) for _ in range(n)
-        ]
+        self.instructions = generate_instructions(n)
         self.pipeline: List[Instruction] = [NOP() for _ in range(Stage.NB_STAGES.value)]
 
         self.nb_added_cycles = 0

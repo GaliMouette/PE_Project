@@ -1,4 +1,5 @@
 from register import WriteRegister, ReadRegister
+from random import choice
 
 
 class Instruction:
@@ -51,3 +52,7 @@ class CB(Instruction):
 class NOP(Instruction):
     def __init__(self) -> None:
         super().__init__("NOP", None, None, None)
+
+
+def generate_instructions(n: int) -> list[Instruction]:
+    return [choice([AL(), ALI(), L(), S(), J(), CB()]) for _ in range(n)]
